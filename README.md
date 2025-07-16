@@ -35,7 +35,7 @@ conda activate emotionAI
 ```
 
 Install dependencies
-`pip install opencv-python deepface pyaudio numpy soundfile torch torchaudio transformers`
+```pip install opencv-python deepface pyaudio numpy soundfile torch torchaudio transformers```
 
 If `pyaudio` fails on macOS (Apple Silicon), install portaudio first:
 
