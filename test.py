@@ -3,6 +3,7 @@ from deepface import DeepFace
 import numpy as np
 import torch
 import pyaudio
+import time
 from threading import Thread
 from transformers import AutoModelForAudioClassification, Wav2Vec2FeatureExtractor
 
@@ -23,7 +24,6 @@ audio_conf = 0.0
 p = pyaudio.PyAudio()
 stream = p.open(format=FORMAT, channels=CHANNELS, rate=RATE, input=True, frames_per_buffer=CHUNK)
 
-
 # ---------- Audio Emotion Thread ----------
 def audio_emotion_loop():
     global audio_label, audio_conf
@@ -42,7 +42,6 @@ def audio_emotion_loop():
             audio_label = audio_model.config.id2label[predicted_label]
             audio_conf = scores[predicted_label].item()
 
-
 # Start audio thread
 Thread(target=audio_emotion_loop, daemon=True).start()
 
@@ -50,8 +49,8 @@ Thread(target=audio_emotion_loop, daemon=True).start()
 cap = cv2.VideoCapture(0)
 
 # Reduce camera resolution for better FPS
-cap.set(cv2.CAP_PROP_FRAME_WIDTH, 640)
-cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 360)
+cap.set(cv2.CAP_PROP_FRAME_WIDTH, 800)
+cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 430)
 
 # DeepFace is slow, so only run every X frames
 frame_skip = 5
@@ -79,10 +78,8 @@ while True:
         emotion = face['dominant_emotion']
         confidence = face['emotion'][emotion]
 
-        # Draw bounding box
+        # Draw bounding box and label
         cv2.rectangle(frame, (x, y), (x+w, y+h), (0, 255, 0), 2)
-
-        # Label face emotion
         label = f"{emotion} ({confidence:.1f}%)"
         cv2.putText(frame, label, (x, y - 10),
                     cv2.FONT_HERSHEY_SIMPLEX, 0.8, (255, 255, 255), 2)
