@@ -70,6 +70,11 @@ Press `ESC` to quit.
 [PyAudio Doc](https://people.csail.mit.edu/hubert/pyaudio/)
 
 ---
+
+## Demo
+[Demo Video](https://www.youtube.com/watch?v=8rnxNbSBVZk)
+
+---
 ## Credit
 
 Built by [cctz123](https://github.com/cctz123) for the Wharton SF AI Leadership Final Project.
